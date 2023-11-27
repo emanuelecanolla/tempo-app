@@ -137,3 +137,66 @@ form button i{
     transform: translate3d(0, 0, 0);
     opacity: 1;
 }
+
+.cities{
+    display: grid;
+    padding: 0;
+    list-style: none;
+    gap: 2rem;
+    margin-bottom: 0 0 4rem;
+}
+
+.cities li{
+    display: flex;
+    gap: 1.5rem;
+    background-color: white;
+    align-items: center;
+    padding: 1.5rem;
+    color: #050b12;
+    border-radius: 4px;
+    box-shadow: 8px 8px 0 px rgba(255, 255, 255, .08);
+}
+
+.conditions{
+    color: #76869b;
+    margin-bottom: 1rem;
+}
+
+.country{
+    color: white;
+    background-color: #0385AA;
+    border-radius: 4px;
+    padding: .125rem .25rem;
+    margin-left: .5rem; 
+}
+
+/* ------------------------------
+         560px
+   ------------------------------
+*/
+
+@media screen and (min-width: 560px) {
+    .cities{
+        grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    }
+
+    .cities li{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .conditions{
+        margin: 1.5rem;
+    }
+}
+
+/* ------------------------------
+         786px
+   ------------------------------
+*/
+
+@media screen and (min-width: 560px) {
+    .container{
+        padding: 4rem;
+    }
+}
