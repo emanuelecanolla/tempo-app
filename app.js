@@ -3,7 +3,7 @@
  const msg = document.querySelector(".msg")
  const list = document.querySelector(".cities")
 
- const apiKey = '76382fea85d82017486d5daf760d804d'
+ const apiKey = 'f4846a2d6c9877fd2ad3df293fd7a994'
 
  form.addEventListener("submit", e =>{
     e.preventDefault()
@@ -36,6 +36,49 @@
             return content== inputVal.toLowerCase()
         })
 
-        console.log(filteredArray)
+        if(filteredArray.length > 0) {
+            msg.textContent = `Você está pronto para a previsão de ${filteredArray[0].querySelector(".city-name").textContent} ... especifique informando o codígo do país também` 
+            msg.classList.add("visible")
+
+            form.request()
+            input.focus()
+
+            return
+        }
     }
- })
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}`;
+
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data =>{
+
+            if (data.cod == "404") {
+                throw new Error(`${data.cod}, ${data.message}`)
+            }
+            const {main, name, sys, weather} = data
+
+            const li = document.createElement("li")
+
+            const markup = `
+            <div>
+            <h2>${Math.round(main.temp)}<sup>C</sup></h2>
+            <p class="conditions">${weather[0]['description'].toUpperCase()}</p>
+            <h3><span class="city-name">${name}</span><span class="country">${sys.country}</span></h3>
+            </div>
+            `
+
+            li.innerHTML = markup
+
+            list.appendChild(li)
+        })
+        .catch(() => {
+            msg.textContent = "Coloce uma cidade valida"
+            msg.classList.add("visible")
+        })
+
+        msg.textContent = ""
+        form.reset()
+        input.focus()
+     })
